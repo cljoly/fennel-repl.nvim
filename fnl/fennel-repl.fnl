@@ -14,7 +14,7 @@ endfunction")
    (macro imap [bufnr lhs rhs]
      (let [opts {:noremap true :expr true}]
        `(vim.api.nvim_buf_set_keymap ,bufnr :i ,lhs ,rhs ,opts)))
-   (vim.api.nvim_command (: "autocmd BufEnter <buffer=%d> startinsert" :format bufnr))
+   (vim.api.nvim_create_autocmd :BufEnter {:buffer bufnr :command :startinsert})
    (doto bufnr
      (vim.api.nvim_buf_set_name (: "fennel-repl.%d" :format state.n))
      (vim.api.nvim_buf_set_option :buftype :prompt)
